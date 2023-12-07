@@ -1,0 +1,24 @@
+
+{{#each products.docs}}
+    <a href="/products/{{this._doc._id}}">
+      <h2>Producto: {{this._doc.title}}</h2>
+    </a>
+    <p>Price: {{this._doc.price}} </p> 
+     <div>
+      {{#if this._doc.thumbnail.length}}
+        {{#each this._doc.thumbnail}}
+          <img src="{{this}}" alt="">
+        {{/each}}
+      {{/if}}
+    </div>   
+{{/each}}
+
+{{#if products.hasPrevPage}}
+  <a href="{{products.prevLink}}">< {{products.prevPage}}</a>
+{{/if}}
+[{{products.page}}]
+
+{{#if products.hasNextPage}}
+  <a href="{{products.nextLink}}">{{products.nextPage}} > </a>
+{{/if}}
+

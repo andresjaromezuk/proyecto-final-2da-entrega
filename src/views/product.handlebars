@@ -1,0 +1,44 @@
+<div>
+    <h1> {{product.title}}</h1>
+    <button>AGREGAR AL CARRITO</button>
+    <input type="text" value="{{product._id}}" hidden>
+    <p>Code: {{product.code}}</p>
+    <p>Descripción: {{product.description}}</p>
+    <p>Stock:{{product.stock}}</p>
+    <div>
+      {{#if product.thumbnail.length}}
+        {{#each product.thumbnail}}
+          <img src="{{this}}" alt="">
+        {{/each}}
+      {{/if}}
+    </div> 
+</div>
+
+<script>
+    document.querySelector('button').addEventListener('click', async (e) =>{
+        e.preventDefault()
+        const product_id = document.querySelector('input').value
+        try{
+            const response = await fetch('http://localhost:8080/api/carts',{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+        })
+        if (response.status === 200){
+            const data = await response.json()
+            const cart_id = data.payload._id
+            const cart = await fetch(`http://localhost:8080/api/carts/${cart_id}/product/${product_id}`,{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            })
+            alert("El producto fue agregado al carrito")
+        }
+        }catch(e){
+           console.log(e.message) 
+        }
+        
+    })
+</script>

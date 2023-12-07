@@ -1,0 +1,78 @@
+[
+  {
+    "title": "producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": [
+      "/static/images/img.png"
+    ],
+    "code": "abc800",
+    "stock": 15,
+    "status": true,
+    "category": "productos",
+    "id": 1
+  },
+  {
+    "id": 2,
+    "title": "producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": [
+      "http://localhost:8080/static/images/imgproduct_1701132463409.jpg"
+    ],
+    "code": "abc456",
+    "stock": 15,
+    "status": true,
+    "category": "productos"
+  },
+  {
+    "id": 3,
+    "title": "producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": [
+      "http://localhost:8080/static/images/imgproduct_1701132216950.jpg"
+    ],
+    "code": "abc789",
+    "stock": 15,
+    "status": true,
+    "category": "productos"
+  },
+  {
+    "id": 4,
+    "title": "producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": [
+      "http://localhost:8080/static/images/imgproduct_1699319358660.jpg"
+    ],
+    "code": "abc100",
+    "stock": 15,
+    "status": true,
+    "category": "productos"
+  },
+  {
+    "id": 5,
+    "title": "producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": [],
+    "code": "abc200",
+    "stock": 15,
+    "status": true,
+    "category": "productos"
+  },
+  {
+    "id": 6,
+    "title": "producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 200,
+    "thumbnail": [
+      "http://localhost:8080/static/images/imgproduct_1701032404328.jpg"
+    ],
+    "code": "abc300",
+    "stock": 15,
+    "status": true,
+    "category": "productos"
+  }
+]
