@@ -1,12 +1,12 @@
 
 {{#each products.docs}}
-    <a href="/products/{{this._doc._id}}">
-      <h2>Producto: {{this._doc.title}}</h2>
+    <a href="/products/{{this._id}}">
+      <h2>Producto: {{this.title}}</h2>
     </a>
-    <p>Price: {{this._doc.price}} </p> 
+    <p>Price: {{this.price}} </p> 
      <div>
-      {{#if this._doc.thumbnail.length}}
-        {{#each this._doc.thumbnail}}
+      {{#if this.thumbnail.length}}
+        {{#each this.thumbnail}}
           <img src="{{this}}" alt="">
         {{/each}}
       {{/if}}

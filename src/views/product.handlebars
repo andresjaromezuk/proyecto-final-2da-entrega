@@ -1,6 +1,7 @@
 <div>
     <h1> {{product.title}}</h1>
-    <button>AGREGAR AL CARRITO</button>
+    <button id="addToCart">AGREGAR AL CARRITO</button>
+    <button id="emptyCart">VACIAR CARRITO</button>
     <input type="text" value="{{product._id}}" hidden>
     <p>Code: {{product.code}}</p>
     <p>Descripción: {{product.description}}</p>
@@ -15,30 +16,49 @@
 </div>
 
 <script>
-    document.querySelector('button').addEventListener('click', async (e) =>{
+    //Script para llenar y vaciar carrito
+    let id
+    document.querySelector('#addToCart').addEventListener('click', async (e) =>{
         e.preventDefault()
         const product_id = document.querySelector('input').value
         try{
-            const response = await fetch('http://localhost:8080/api/carts',{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                }
-        })
-        if (response.status === 200){
-            const data = await response.json()
-            const cart_id = data.payload._id
-            const cart = await fetch(`http://localhost:8080/api/carts/${cart_id}/product/${product_id}`,{
+            
+            //Creamos carrito si no existe
+            if(!id){
+                const response = await fetch('http://localhost:8080/api/carts',{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const data = await response.json()
+                id = data.payload._id
+            }
+
+            //Agregamos producto al carrito
+            const cart = await fetch(`http://localhost:8080/api/carts/${id}/product/${product_id}`,{
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'
                 }
             })
             alert("El producto fue agregado al carrito")
-        }
         }catch(e){
            console.log(e.message) 
         }
         
+    })
+
+    document.querySelector('#emptyCart').addEventListener('click', async (e) =>{
+        //Si existe el carrito actual, lo vaciamos
+        if(id){
+           await fetch(`http://localhost:8080/api/carts/${id}`,{
+                method: 'DELETE',
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            })  
+        }
+        alert("Tu carrito fue vaciado")
     })
 </script>

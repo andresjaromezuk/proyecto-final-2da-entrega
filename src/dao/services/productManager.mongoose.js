@@ -29,9 +29,9 @@ class ProductManager{
 
         let products
         if (sort){
-            products = await dbProduct.paginate(condition,{limit:limit, page: page, sort: { price: sort }})
+            products = await dbProduct.paginate(condition,{limit:limit, page: page, sort: { price: sort }, lean:true})
         }else{
-            products = await dbProduct.paginate(condition,{limit:limit, page: page})
+            products = await dbProduct.paginate(condition,{limit:limit, page: page, lean:true})
         }
         products.prevLink = products.hasPrevPage === false ? null : `/products?limit=1&page=${products.prevPage}`
         products.nextLink = products.hasNextPage === false ? null : `/products?limit=1&page=${products.nextPage}`
