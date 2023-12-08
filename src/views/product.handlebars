@@ -18,47 +18,65 @@
 <script>
     //Script para llenar y vaciar carrito
     let id
-    document.querySelector('#addToCart').addEventListener('click', async (e) =>{
-        e.preventDefault()
-        const product_id = document.querySelector('input').value
-        try{
-            
-            //Creamos carrito si no existe
-            if(!id){
-                const response = await fetch('http://localhost:8080/api/carts',{
+
+    //Función para crear carrito
+    async function createCart(id){
+        const response = await fetch('http://localhost:8080/api/carts',{
                     method: 'POST',
                     headers:{
                         'Content-Type': 'application/json'
                     }
                 })
                 const data = await response.json()
-                id = data.payload._id
-            }
+                return data
+    }
 
-            //Agregamos producto al carrito
-            const cart = await fetch(`http://localhost:8080/api/carts/${id}/product/${product_id}`,{
+    //Función para agregar producto al carrito
+    async function addProductToCart(id, product_id){
+        const cart = await fetch(`http://localhost:8080/api/carts/${id}/product/${product_id}`,{
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'
                 }
             })
             alert("El producto fue agregado al carrito")
-        }catch(e){
-           console.log(e.message) 
-        }
-        
-    })
+    }
 
-    document.querySelector('#emptyCart').addEventListener('click', async (e) =>{
-        //Si existe el carrito actual, lo vaciamos
-        if(id){
-           await fetch(`http://localhost:8080/api/carts/${id}`,{
+    //Función para vaciar carrito
+    async function emptyCart(id){
+        await fetch(`http://localhost:8080/api/carts/${id}`,{
                 method: 'DELETE',
                 headers:{
                     'Content-Type': 'application/json'
                 }
             })  
+            alert("Tu carrito fue vaciado")
+    }
+
+    document.querySelector('#addToCart').addEventListener('click', async (e) =>{
+        e.preventDefault()
+        const product_id = document.querySelector('input').value
+        try{
+            //Creamos carrito si no existe
+            if(!id){
+                const response = await createCart(id)
+                id = response.payload._id
+            }
+            //Agregamos producto al carrito
+            await addProductToCart(id, product_id)
+        }catch(e){
+           console.log(e.message) 
         }
-        alert("Tu carrito fue vaciado")
+    })
+
+    document.querySelector('#emptyCart').addEventListener('click', async (e) =>{
+        //Si existe el carrito actual, lo vaciamos
+        try{
+            if(id){
+                await emptyCart(id)
+            }
+        }catch(e){
+            console.log(e.message) 
+        }
     })
 </script>
